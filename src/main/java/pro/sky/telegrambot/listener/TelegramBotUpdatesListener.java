@@ -55,14 +55,12 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 if (matcher.matches()) {
                     System.out.println(matcher.group(1));
                     System.out.println(matcher.group(3));
-
                     LocalDateTime date;
                     try {
                         date = LocalDateTime.parse(matcher.group(1), DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
                         String theTask = matcher.group(3);
                         System.out.println(date);
                         System.out.println(theTask);
-
                         NotificationTask t = new NotificationTask();
                         t.setChatId(update.message().chat().id());
                         t.setTime(date);
@@ -71,17 +69,11 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                     } catch (DateTimeParseException e) {
                         SendMessage message = new SendMessage(update.message().chat().id(),
                                 "Wrong format for date or time!");
-                        SendResponse response = telegramBot.execute(message);
-                    }
-                }
-            }
-        });
+                        SendResponse response = telegramBot.execute(message);}}}});
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
     public void sendTask(NotificationTask task) {
-        SendMessage message = new SendMessage(task.getChatId(), task.getMessage());
-        SendResponse response = telegramBot.execute(message);
+        SendMessage message = new SendMessage(task.getChatId(), task.getMessage());SendResponse response = telegramBot.execute(message);
     }
-
 }

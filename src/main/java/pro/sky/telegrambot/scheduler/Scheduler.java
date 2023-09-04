@@ -17,18 +17,12 @@ import java.util.stream.Collectors;
 @Component
 public class Scheduler {
     private static Logger logger = LoggerFactory.getLogger(Scheduler.class);
-
     @Autowired
     private TaskRepository repository;
-
     @Autowired
     TelegramBotUpdatesListener listener;
-
     @Scheduled(cron = "0 0/1 * * * *")
     public void runTask() {
-        logger.info("scheduling method is called");
-        List<NotificationTask> result = repository.findTaskByTime(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        logger.info("list of tasks retrieved: {}", result);
-        result.forEach(listener::sendTask);
+       logger.info("scheduling method is called");List<NotificationTask> result = repository.findTaskByTime(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));logger.info("list of tasks retrieved: {}", result);result.forEach(listener::sendTask);
     }
 }
